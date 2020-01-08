@@ -32,7 +32,7 @@ class ArticlesController extends AbstractController
     {
 
 
-
+        /**/
         if($page<1){
             throw $this->createNotFoundException("Page non trouvé");
         }
