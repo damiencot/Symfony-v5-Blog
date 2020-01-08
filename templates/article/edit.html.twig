@@ -1,0 +1,9 @@
+{% extends 'blog.html.twig' %}
+
+{% block h1 %}
+    Modification d'un article
+{% endblock %}
+
+{% block articles %}
+    {{ include('article/form.html.twig', {'action': "Modification de l'article ", 'id': id }) }}
+{% endblock %}

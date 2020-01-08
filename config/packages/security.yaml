@@ -1,0 +1,56 @@
+security:
+    # Les encoders fournissent les stratégies d'encodage des mots de passe
+    encoders:
+        # Encoder pour les mots de passe pour chaque type d'utilisateur
+        Symfony\Component\Security\Core\User\User: bcrypt
+        # aucun encodage
+
+
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        my_provider_in_memory: # Nom arbitraire pour le provider
+            memory: # Le provider est en mémoire
+                users:
+                    damien: # john est le login
+                        password: $2y$13$ON1MvgusDUCElRuyjcHyV./PkctzJ8aUcIyI1WAvTRer2hRHR7RhK
+                        roles: ROLE_USER
+                # doe est le mot de passe
+                # rôle : nom arbitraire qui commence par convention par "ROLE_"
+                # un utilisateur peut avoir plusieurs rôles
+                    joe:
+                        password: $2y$13$ON1MvgusDUCElRuyjcHyV./PkctzJ8aUcIyI1WAvTRer2hRHR7RhK
+                        roles:
+                            - ROLE_ADMIN
+                            - ROLE_USER
+
+    firewalls:
+
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+            pattern: ^/
+            http_basic: ~ # Toutes les URLs qui matchent la regexp sont sécuri sées avec authentification basique HTTP
+            form_login:
+                check_path: app_login_check
+                login_path: app_login
+            logout:
+                path: app_logout
+                target: home
+            anonymous: lazy
+
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: "^/blog", roles: ROLE_USER }
+        # Pour tout l’admin du site, le rôle ROLE_ADMIN est require
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
