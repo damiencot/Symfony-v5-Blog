@@ -27,10 +27,14 @@ blog:
   h1: 'List of articles'
   creation_date: 'Creation date'
   updated_at: 'Updated at'
-  recent_articles:
-    title: 'Categories'
-    all: 'All categories'
-    button: 'See more ..'
+  see_articles:
+    title: 'Last Articles :'
+    button: 'See articles'
+  see_category:
+    title: 'Category'
+  list_article:
+    title: Listes of articles
+
   paging:
     previous: 'Previous'
     next: 'Next'
